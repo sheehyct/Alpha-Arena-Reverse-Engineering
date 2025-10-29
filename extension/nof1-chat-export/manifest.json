@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "NOF1 ModelChat Exporter",
+  "version": "0.1.0",
+  "description": "Extracts visible ModelChat text and intercepts WS/SSE/fetch payloads on nof1.ai, then posts to a local collector.",
+  "permissions": [
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://nof1.ai/*",
+    "http://127.0.0.1/*",
+    "http://localhost/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://nof1.ai/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "service_worker.js",
+    "type": "module"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "injected.js"
+      ],
+      "matches": [
+        "https://nof1.ai/*"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "NOF1 Exporter"
+  }
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "content": "=== Claude Sonnet 4.5 Trading Analysis ===\nTime: 2025-10-29 13:54:27\n\nPerformance Metrics:\n  Account Value: $10,500.00\n  Total Return: +5.00%\n  Sharpe Ratio: 0.45\n\nChain of Thought Reasoning:\n\n        Let me analyze the current market conditions:\n\n        1. BTC is trading at $113,000 with strong momentum\n        2. The 4H MACD is positive at 28.095\n        3. RSI is at 63, not yet overbought\n        4. Volume is confirming the move\n\n        Based on this analysis, I believe we should hold our current\n        long position and wait for either:\n        - Price to hit profit target at $115,000\n        - MACD to turn negative\n        - Price to close below $110,000 on 4H\n\n        The risk/reward is favorable here with tight stop loss.\n        \n\nTrading Decisions:\n  • BTC: HOLD (Confidence: 75.0%)\n    Quantity: 0.5\n",
+    "tags": [
+      "symbol_btc",
+      "action_hold",
+      "medium_confidence",
+      "priority_3_negative_pl",
+      "year_2025",
+      "model_claude_sonnet_4.5",
+      "date_2025_10_29",
+      "profitable",
+      "month_2025_10"
+    ],
+    "metadata": {
+      "model_name": "Claude Sonnet 4.5",
+      "timestamp": "2025-10-29T13:54:27.853351",
+      "message_id": "2025-10-29T13:54:27.853351",
+      "scraped_at": "2025-10-29T13:54:27.853351",
+      "account_value": 10500.0,
+      "total_return": 5.0,
+      "sharpe_ratio": 0.45,
+      "symbols": [
+        "BTC"
+      ],
+      "actions": [
+        "HOLD"
+      ],
+      "avg_confidence": 0.75
+    }
+  },
+  {
+    "content": "=== Claude Sonnet 4.5 Trading Analysis ===\nTime: 2025-10-29 12:46:44\n\nPerformance Metrics:\n  Account Value: $10,500.00\n  Total Return: +5.00%\n  Sharpe Ratio: 0.45\n\nChain of Thought Reasoning:\n\n        Let me analyze the current market conditions:\n\n        1. BTC is trading at $113,000 with strong momentum\n        2. The 4H MACD is positive at 28.095\n        3. RSI is at 63, not yet overbought\n        4. Volume is confirming the move\n\n        Based on this analysis, I believe we should hold our current\n        long position and wait for either:\n        - Price to hit profit target at $115,000\n        - MACD to turn negative\n        - Price to close below $110,000 on 4H\n\n        The risk/reward is favorable here with tight stop loss.\n        \n\nTrading Decisions:\n  • BTC: HOLD (Confidence: 75.0%)\n    Quantity: 0.5\n",
+    "tags": [
+      "symbol_btc",
+      "action_hold",
+      "medium_confidence",
+      "priority_3_negative_pl",
+      "year_2025",
+      "model_claude_sonnet_4.5",
+      "date_2025_10_29",
+      "profitable",
+      "month_2025_10"
+    ],
+    "metadata": {
+      "model_name": "Claude Sonnet 4.5",
+      "timestamp": "2025-10-29T12:46:44.774476",
+      "message_id": "2025-10-29T12:46:44.774476",
+      "scraped_at": "2025-10-29T12:46:44.774476",
+      "account_value": 10500.0,
+      "total_return": 5.0,
+      "sharpe_ratio": 0.45,
+      "symbols": [
+        "BTC"
+      ],
+      "actions": [
+        "HOLD"
+      ],
+      "avg_confidence": 0.75
+    }
+  },
+  {
+    "content": "=== Claude Sonnet 4.5 Trading Analysis ===\nTime: 2025-10-29 10:09:06\n\nPerformance Metrics:\n  Account Value: $10,500.00\n  Total Return: +5.00%\n  Sharpe Ratio: 0.45\n\nChain of Thought Reasoning:\n\n        Let me analyze the current market conditions:\n\n        1. BTC is trading at $113,000 with strong momentum\n        2. The 4H MACD is positive at 28.095\n        3. RSI is at 63, not yet overbought\n        4. Volume is confirming the move\n\n        Based on this analysis, I believe we should hold our current\n        long position and wait for either:\n        - Price to hit profit target at $115,000\n        - MACD to turn negative\n        - Price to close below $110,000 on 4H\n\n        The risk/reward is favorable here with tight stop loss.\n        \n\nTrading Decisions:\n  • BTC: HOLD (Confidence: 75.0%)\n    Quantity: 0.5\n",
+    "tags": [
+      "symbol_btc",
+      "action_hold",
+      "medium_confidence",
+      "priority_3_negative_pl",
+      "year_2025",
+      "model_claude_sonnet_4.5",
+      "date_2025_10_29",
+      "profitable",
+      "month_2025_10"
+    ],
+    "metadata": {
+      "model_name": "Claude Sonnet 4.5",
+      "timestamp": "2025-10-29T10:09:06.744961",
+      "message_id": "2025-10-29T10:09:06.744961",
+      "scraped_at": "2025-10-29T10:09:06.744961",
+      "account_value": 10500.0,
+      "total_return": 5.0,
+      "sharpe_ratio": 0.45,
+      "symbols": [
+        "BTC"
+      ],
+      "actions": [
+        "HOLD"
+      ],
+      "avg_confidence": 0.75
+    }
+  },
+  {
+    "content": "=== Claude Sonnet 4.5 Trading Analysis ===\nTime: 2025-10-29 10:08:51\n\nPerformance Metrics:\n  Account Value: $10,500.00\n  Total Return: +5.00%\n  Sharpe Ratio: 0.45\n\nChain of Thought Reasoning:\n\n        Let me analyze the current market conditions:\n\n        1. BTC is trading at $113,000 with strong momentum\n        2. The 4H MACD is positive at 28.095\n        3. RSI is at 63, not yet overbought\n        4. Volume is confirming the move\n\n        Based on this analysis, I believe we should hold our current\n        long position and wait for either:\n        - Price to hit profit target at $115,000\n        - MACD to turn negative\n        - Price to close below $110,000 on 4H\n\n        The risk/reward is favorable here with tight stop loss.\n        \n\nTrading Decisions:\n  • BTC: HOLD (Confidence: 75.0%)\n    Quantity: 0.5\n",
+    "tags": [
+      "symbol_btc",
+      "action_hold",
+      "medium_confidence",
+      "priority_3_negative_pl",
+      "year_2025",
+      "model_claude_sonnet_4.5",
+      "date_2025_10_29",
+      "profitable",
+      "month_2025_10"
+    ],
+    "metadata": {
+      "model_name": "Claude Sonnet 4.5",
+      "timestamp": "2025-10-29T10:08:51.619762",
+      "message_id": "2025-10-29T10:08:51.619762",
+      "scraped_at": "2025-10-29T10:08:51.619762",
+      "account_value": 10500.0,
+      "total_return": 5.0,
+      "sharpe_ratio": 0.45,
+      "symbols": [
+        "BTC"
+      ],
+      "actions": [
+        "HOLD"
+      ],
+      "avg_confidence": 0.75
+    }
+  }
+]

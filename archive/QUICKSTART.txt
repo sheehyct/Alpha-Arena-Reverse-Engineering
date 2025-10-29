@@ -1,0 +1,190 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                   NOF1.AI SCRAPER - QUICK START GUIDE                      ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+STEP 1: INSTALL PLAYWRIGHT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Open terminal/command prompt and run:
+
+    pip install playwright
+    playwright install chromium
+
+This downloads the browser engine needed for scraping.
+
+
+STEP 2: START THE SCRAPER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    python nof1_scraper.py
+
+That's it! The scraper will:
+✓ Check NOF1.AI every 2.5 minutes
+✓ Save all ModelChat messages to nof1_data.db
+✓ Skip duplicates automatically
+✓ Log activity to nof1_scraper.log
+✓ Run until you press Ctrl+C
+
+
+STEP 3: MONITOR IN REAL-TIME (Optional)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Open a second terminal and run:
+
+    python nof1_monitor.py
+
+You'll see a live dashboard showing:
+• Total messages collected
+• Messages per model
+• Recent activity feed
+• Last scrape time
+
+Refreshes every 10 seconds automatically.
+
+
+STEP 4: ANALYZE THE DATA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After collecting data for a few hours/days:
+
+    python nof1_analyzer.py --report
+
+This creates deepseek_analysis.txt with:
+• Most common trading phrases
+• Entry signal patterns  
+• Exit decision analysis
+• Timeframe preferences
+• Sample reasoning chains
+
+
+COMMON COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+View Statistics:
+    python nof1_scraper.py --stats
+
+Export to CSV:
+    python nof1_scraper.py --export
+
+Show Last 10 Messages:
+    python nof1_monitor.py --tail 10
+
+View Entry Signals:
+    python nof1_analyzer.py --entries
+
+Analyze Exit Patterns:
+    python nof1_analyzer.py --exits
+
+Compare All Models:
+    python nof1_analyzer.py --compare
+
+
+RECOMMENDED WORKFLOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Day 1:
+1. Start scraper in background
+2. Let it run for 24 hours to collect baseline data
+
+Day 2:
+1. Check stats: python nof1_scraper.py --stats
+2. Generate first report: python nof1_analyzer.py --report
+3. Review DeepSeek's entry signals
+
+Day 3-7:
+1. Continue scraping
+2. Run analysis every 2-3 days
+3. Look for recurring patterns in reasoning
+4. Note confidence levels for successful trades
+
+Week 2:
+1. Export full dataset: python nof1_scraper.py --export
+2. Build custom analysis in Excel/Python
+3. Map patterns to your ThinkScript indicator
+
+
+CUSTOMIZATION OPTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Check every 3 minutes instead of 2.5:
+    python nof1_scraper.py --interval 180
+
+Use custom database location:
+    python nof1_scraper.py --db /path/to/my_data.db
+
+Monitor specific model only:
+    python nof1_analyzer.py --model qwen3-max --entries
+
+
+RUNNING IN BACKGROUND
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Linux/Mac (using screen):
+    screen -S nof1
+    python nof1_scraper.py
+    # Press Ctrl+A then D to detach
+    # Reattach later: screen -r nof1
+
+Windows (run without console):
+    pythonw nof1_scraper.py
+
+Or use Task Scheduler to run on startup.
+
+
+TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"Playwright not installed":
+    pip install playwright
+    playwright install chromium
+
+"No messages found":
+    Site structure may have changed. The scraper uses best-effort selectors
+    and will grab visible text as fallback. Check nof1_scraper.log for details.
+
+Database locked:
+    Another process is using the database. Stop other instances:
+    ps aux | grep nof1  # then kill [PID]
+
+High CPU:
+    Increase check interval:
+    python nof1_scraper.py --interval 300
+
+
+WHAT TO LOOK FOR IN DEEPSEEK'S REASONING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Entry Signals:
+• "momentum acceleration"
+• "volume confirmation"
+• "breakout above resistance"
+• Specific confidence levels (0.7-0.9)
+
+Risk Management:
+• Stop loss placement logic
+• Invalidation conditions
+• Position sizing rules
+• Leverage amounts (10x, 5x, etc.)
+
+Exit Triggers:
+• "invalidation triggered"
+• "target reached"
+• "momentum fading"
+• Structural break conditions
+
+Timeframes:
+• Primary trend timeframe mentions
+• Execution timeframe references
+• Multi-timeframe confirmation
+
+These patterns will directly inform your penny stock indicator parameters!
+
+
+QUESTIONS?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Check README.md for full documentation.
+Review code comments in each .py file.
+Check nof1_scraper.log for detailed activity logs.
+
+Happy scraping! 🚀

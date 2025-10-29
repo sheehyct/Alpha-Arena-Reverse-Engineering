@@ -1,0 +1,28 @@
+[project]
+name = "nof1-scraper"
+version = "0.1.0"
+description = "Chain of Thought reasoning scraper for nof1.ai trading models"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+    "typer>=0.12.0",
+    "pydantic>=2.0.0",
+    "playwright>=1.48.0",
+    "httpx>=0.27.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "ruff>=0.1.0",
+]
+
+[tool.uv]
+managed = true
+default-groups = ["dev"]
+
+[project.scripts]
+nof1-scraper = "src.cli:app"

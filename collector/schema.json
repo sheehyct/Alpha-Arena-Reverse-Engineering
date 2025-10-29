@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/nof1.schema.json",
+  "title": "NOF1 Ingest Event",
+  "type": "object",
+  "properties": {
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "received_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "url": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "ws_message",
+                  "ws_open",
+                  "ws_close",
+                  "ws_error",
+                  "sse_message",
+                  "sse_open",
+                  "sse_error",
+                  "fetch_json",
+                  "visible_text",
+                  "dom_snapshot",
+                  "ready"
+                ]
+              },
+              "data": {
+                "type": "string"
+              },
+              "headings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        },
+        "required": [
+          "received_at",
+          "payload"
+        ]
+      }
+    }
+  },
+  "required": [
+    "events"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "events": [
+    {
+      "received_at": "2025-10-29T12:00:00Z",
+      "url": "https://nof1.ai/live",
+      "payload": {
+        "kind": "sse_message",
+        "data": "data: {\"data\":{\"model\":\"DeepSeek V3.1\",\"reasoning\":\"Market is ranging; plan small long BTC.\",\"action\":\"Buy\",\"confidence\":0.72,\"positions\":[{\"symbol\":\"BTCUSDT\",\"side\":\"long\",\"size\":0.1,\"leverage\":3}],\"marketData\":{\"price\": 68050.2}}}"
+      }
+    },
+    {
+      "received_at": "2025-10-29T12:00:02Z",
+      "url": "https://nof1.ai/live",
+      "payload": {
+        "kind": "visible_text",
+        "data": "Model: DeepSeek V3.1\\nAction: Buy BTCUSDT\\nConfidence: 0.72\\nReasoning Trace: ..."
+      }
+    }
+  ]
+}
