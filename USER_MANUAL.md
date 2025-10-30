@@ -100,61 +100,78 @@ Models captured:
 
 ## Analysis Workflows
 
-### 1. Sync to OpenMemory (Semantic Search Storage)
+### 1. Quick Statistics and Search
 
-Prepares captured data for analysis using OpenMemory semantic search.
+Fast command-line tool for basic statistics and keyword searches.
 
 **PowerShell:**
 ```powershell
 cd "C:\Users\sheeh\OneDrive\Desktop\DeepSeek Analysis"
-uv run python workflows/sync_to_openmemory.py
+
+# Show statistics
+uv run python workflows/quick_analysis.py
+
+# Search for keyword
+uv run python workflows/quick_analysis.py --search "MACD" --limit 10
+uv run python workflows/quick_analysis.py --search "risk management" --limit 5
 ```
 
 **VS Code:**
-1. Open `workflows/sync_to_openmemory.py`
+1. Open `workflows/quick_analysis.py`
 2. Right-click > "Run Python File in Terminal"
+
+**What you should see:**
+```
+=== Quick Statistics ===
+
+Total messages: 142
+
+By model:
+  qwen3-max: 31
+  gemini-2.5-pro: 24
+  claude-sonnet-4-5: 23
+  deepseek-chat-v3.1: 19
+```
+
+---
+
+### 2. Interactive Local Data Analysis
+
+Comprehensive interactive tool for analyzing captured trading data from SQLite.
+
+**PowerShell:**
+```powershell
+cd "C:\Users\sheeh\OneDrive\Desktop\DeepSeek Analysis"
+uv run python workflows/analyze_local_data.py
+```
+
+**VS Code:**
+1. Open `workflows/analyze_local_data.py`
+2. Right-click > "Run Python File in Terminal"
+
+**Available Options:**
+1. Search for keyword in reasoning
+2. Show trading decision statistics
+3. Analyze keyword frequency
+4. Compare models by keywords
+5. Export model reasoning to file
+6. Show overview by model
 
 **What it does:**
-- Merges Extension + Playwright data
-- Removes duplicates
-- Creates batch export files
-- Generates MCP commands for Claude Code to execute
-
-**Output:** Creates `openmemory_batch_YYYYMMDD_HHMMSS.json` files
-
----
-
-### 2. Query Analysis Patterns
-
-Interactive tool to search for trading patterns using pre-built queries.
-
-**PowerShell:**
-```powershell
-cd "C:\Users\sheeh\OneDrive\Desktop\DeepSeek Analysis"
-uv run python workflows/analyze_strategies.py
-```
-
-**VS Code:**
-1. Open `workflows/analyze_strategies.py`
-2. Right-click > "Run Python File in Terminal"
-
-**Available Queries:**
-1. High Confidence Profitable Trades
-2. Model Comparison (Winners vs Losers)
-3. Failed Trade Analysis
-4. DeepSeek Winning Patterns (Priority Model #1)
-5. QWEN Strategy Analysis (Priority Model #2)
-6. Claude Decision Analysis (Priority Model #3)
-7. Market Condition Analysis
-8. Risk Management Patterns
-9. Entry/Exit Timing Analysis
-10. Custom Query Builder
+- Search chain of thought reasoning for patterns
+- Compare how different models approach trading
+- Export specific model data for deep analysis
+- Analyze keyword frequency across all models
+- Filter by specific models
 
 ---
 
-### 3. Monitor Real-Time Capture (Optional)
+### 3. Sync to OpenMemory (Optional - Advanced)
 
-Shows live statistics as data is captured.
+For semantic search capabilities, you can optionally sync data to OpenMemory.
+
+**Note:** Local analysis is faster and works directly with your database.
+Only use OpenMemory if you need semantic similarity search.
 
 **PowerShell:**
 ```powershell

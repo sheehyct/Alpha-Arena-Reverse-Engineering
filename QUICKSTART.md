@@ -38,20 +38,28 @@ uv run python -c "import sqlite3; conn = sqlite3.connect('collector/nof1_data.db
 
 ## Analysis
 
-### Sync to OpenMemory
+### Quick Statistics
 ```powershell
-uv run python workflows/sync_to_openmemory.py
+uv run python workflows/quick_analysis.py
 ```
 
-### Interactive Query Tool
+### Search for Keyword
 ```powershell
-uv run python workflows/analyze_strategies.py
+uv run python workflows/quick_analysis.py --search "MACD" --limit 10
 ```
 
-### Real-Time Monitor
+### Interactive Analysis Tool
 ```powershell
-uv run python workflows/start_capture.py
+uv run python workflows/analyze_local_data.py
 ```
+
+Options:
+1. Search for keyword in reasoning
+2. Show trading decision statistics
+3. Analyze keyword frequency
+4. Compare models by keywords
+5. Export model reasoning to file
+6. Show overview by model
 
 ---
 
