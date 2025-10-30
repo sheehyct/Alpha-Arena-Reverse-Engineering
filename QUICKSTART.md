@@ -61,6 +61,19 @@ Options:
 5. Export model reasoning to file
 6. Show overview by model
 
+### Strategy Analysis (10 Pre-Built Queries)
+```powershell
+uv run python workflows/analyze_strategies_local.py
+
+# Query #5: DeepSeek Winning Patterns
+uv run python workflows/analyze_strategies_local.py --query 5
+
+# Query #10: Compare All Priority Models
+uv run python workflows/analyze_strategies_local.py --query 10
+```
+
+Queries: Risk Management, Entry/Exit Signals, Model-Specific Patterns
+
 ---
 
 ## Troubleshooting

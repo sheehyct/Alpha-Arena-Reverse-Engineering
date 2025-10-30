@@ -166,7 +166,57 @@ uv run python workflows/analyze_local_data.py
 
 ---
 
-### 3. Sync to OpenMemory (Optional - Advanced)
+### 3. Local Strategy Analysis (Pre-Built Queries)
+
+Interactive tool with 10 pre-built trading strategy queries for fast pattern discovery.
+
+**PowerShell:**
+```powershell
+cd "C:\Users\sheeh\OneDrive\Desktop\DeepSeek Analysis"
+uv run python workflows/analyze_strategies_local.py
+
+# List all queries
+uv run python workflows/analyze_strategies_local.py --list
+
+# Run specific query
+uv run python workflows/analyze_strategies_local.py --query 5
+
+# View full message
+uv run python workflows/analyze_strategies_local.py --view 2128
+```
+
+**VS Code:**
+1. Open `workflows/analyze_strategies_local.py`
+2. Right-click > "Run Python File in Terminal"
+
+**Pre-Built Queries:**
+1. Risk Management Strategies
+2. Entry Signals - Trending Markets
+3. Exit Strategies - Profit Taking
+4. Stop Loss Placement
+5. DeepSeek Winning Patterns (Priority Model #1)
+6. QWEN3 Strategies (Priority Model #2)
+7. Claude Analysis Patterns (Priority Model #3)
+8. Technical Indicators (MACD, RSI, MA)
+9. Market Conditions (Volatility, Trending)
+10. All Priority Models Comparison
+
+**What it does:**
+- Pre-configured keyword lists for common patterns
+- Model-specific queries for priority models
+- Interactive menu with query descriptions
+- View full message reasoning directly from results
+- Custom query builder for ad-hoc searches
+
+**Recommended Workflow:**
+1. Run query #5 (DeepSeek Winning Patterns)
+2. Note interesting message IDs from results
+3. Use `--view <ID>` to read full reasoning
+4. Extract patterns and compare with query #6 (QWEN3)
+
+---
+
+### 4. Sync to OpenMemory (Optional - Advanced)
 
 For semantic search capabilities, you can optionally sync data to OpenMemory.
 
