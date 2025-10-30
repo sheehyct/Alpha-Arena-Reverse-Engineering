@@ -1,0 +1,44 @@
+{
+  "backup_date": "2025-10-29T02:40:00Z",
+  "session": "nof1-analysis-reasoning-extraction",
+  "memory_ids": [
+    "b6f3e329-8ed7-4025-b99a-2a7103a280a0",
+    "3069d69e-1307-4a23-a73f-5cbf3469001e",
+    "6d9eba4d-0e82-42c5-bbcc-762a5c228292",
+    "545e1468-9e05-4310-ae65-0bf4137f7ede",
+    "84a380fb-8eaa-43cb-ad01-f72bd54830dc"
+  ],
+  "memories": [
+    {
+      "id": "b6f3e329-8ed7-4025-b99a-2a7103a280a0",
+      "tags": ["nof1-analysis", "reasoning-extraction", "project-status"],
+      "primary_sector": "procedural",
+      "content": "Two-Phase Reasoning Analysis System Created\n\nBuilt comprehensive trading reasoning analysis system for nof1.ai models:\n\nPhase 1 - Pattern Extraction (workflows/analyze_reasoning_patterns.py):\n- Free, regex-based indicator and action detection\n- Analyzes 246 messages showing indicator combinations\n- Reveals DeepSeek 100% mentions long entries, Claude balanced 70/65 long/short, Gemini 100% short bias\n- All models consistently use MACD + RSI + MA + Volume + ATR\n\nPhase 2 - LLM Structured Extraction (workflows/extract_structured_reasoning.py):\n- Uses Claude API to extract WHY reasoning and causal chains\n- Creates structured_reasoning SQLite table\n- Cost: $2.50 for 246 messages, $1.25 with Batch API\n- User has $50 API credits available\n\nCurrent Status:\n- 246 messages captured (up from 142)\n- Collector working perfectly at collector/nof1_data.db\n- All code committed to https://github.com/sheehyct/Alpha-Arena-Reverse-Engineering.git\n\nNext Action: Let collector run 24-48 hours to accumulate 500-1000 messages before running Phase 2 extraction"
+    },
+    {
+      "id": "3069d69e-1307-4a23-a73f-5cbf3469001e",
+      "tags": ["bug-fixes", "database-paths"],
+      "primary_sector": "procedural",
+      "content": "Bug Fixes Completed - Database Path Issues Resolved\n\nFixed all workflow scripts pointing to old GPT_Implementation_Proposal/collector directory:\n- workflows/start_capture.py - Fixed database path to collector/nof1_data.db\n- workflows/analyze_local_data.py - Fixed to use dynamic path resolution\n- workflows/quick_analysis.py - Fixed database path\n- workflows/analyze_strategies_local.py - Uses correct paths\n\nAll scripts now use: PROJECT_ROOT / \"collector\" / \"nof1_data.db\"\n\nGPT_Implementation_Proposal folder still exists but marked for manual archive due to Windows permissions. Files verified identical to root-level collector/ and extension/ folders."
+    },
+    {
+      "id": "6d9eba4d-0e82-42c5-bbcc-762a5c228292",
+      "tags": ["analysis-tools", "workflows"],
+      "primary_sector": "reflective",
+      "content": "Analysis Scripts Portfolio - Five Tools Available\n\n1. workflows/quick_analysis.py - Fast statistics and keyword search\n2. workflows/show_recent_messages.py - View latest message IDs\n3. workflows/analyze_local_data.py - Interactive 6-option analysis menu\n4. workflows/analyze_strategies_local.py - 10 pre-built trading pattern queries\n5. workflows/analyze_reasoning_patterns.py - Pattern extraction (Phase 1, free)\n6. workflows/extract_structured_reasoning.py - LLM extraction (Phase 2, API cost)\n\nLocal versions created to avoid tedious OpenMemory sync of 700+ messages. OpenMemory version (workflows/analyze_strategies.py) kept for future semantic search use after competition.\n\nKey insight: Keyword-based local analysis sufficient for competition timeline, semantic search valuable for post-competition deep dive."
+    },
+    {
+      "id": "545e1468-9e05-4310-ae65-0bf4137f7ede",
+      "tags": ["architecture", "data-capture", "priority-models"],
+      "primary_sector": "procedural",
+      "content": "System Architecture - Chrome Extension Data Capture\n\nArchitecture working perfectly:\n- Chrome extension polls /api/conversations every 60 seconds\n- Extension sends to Node.js collector on port 8787\n- Collector processes 100-conversation array into individual SQLite rows\n- Database: collector/nof1_data.db\n\nStartup sequence (important - extension crashes on hard refresh):\n1. Start collector: cd collector && node server.js\n2. Leave nof1.ai open in Chrome tab\n3. Extension auto-captures, no manual refresh needed\n\nCapture fields: user_prompt, cot_trace (chain of thought), llm_response (trading decisions), model_id\n\nModels tracked: deepseek-chat-v3.1, qwen3-max, claude-sonnet-4-5, gemini-2.5-pro, gpt-5, grok-4\n\nPriority models for analysis: DeepSeek V3.1 (#1), QWEN3 MAX (#2), Claude Sonnet 4.5 (#3)"
+    },
+    {
+      "id": "84a380fb-8eaa-43cb-ad01-f72bd54830dc",
+      "tags": ["user-preferences", "project-standards"],
+      "primary_sector": "procedural",
+      "content": "User Preferences and Standards\n\nProfessional software engineering standards:\n- No emojis or special characters in code or docs\n- Plain text only\n- Clean project structure\n- VS Code integration - right-click \"Run Python File in Terminal\"\n- Concise, professional git commit messages\n\nProject organization:\n- collector/ - Node.js data collection\n- extension/ - Chrome extension\n- workflows/ - Python analysis scripts\n- docs/ - Technical documentation\n- archive/ - Old/debugging scripts\n- src/ - Python modules\n- data/ - Export files\n\nUser has $50 Anthropic API credits available (originally loaded for embeddings, but Anthropic doesn't do embeddings, so credits available for reasoning extraction)."
+    }
+  ],
+  "restore_instructions": "To restore these memories, use workflows/import_to_openmemory.py with this backup file"
+}
