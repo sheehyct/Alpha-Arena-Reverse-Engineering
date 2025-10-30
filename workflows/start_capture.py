@@ -39,7 +39,8 @@ except ImportError:
 console = Console()
 
 # Configuration
-COLLECTOR_DIR = Path("GPT_Implementation_Proposal/collector")
+PROJECT_ROOT = Path(__file__).parent.parent
+COLLECTOR_DIR = PROJECT_ROOT / "collector"
 SERVER_SCRIPT = COLLECTOR_DIR / "server.js"
 DATABASE_PATH = COLLECTOR_DIR / "nof1_data.db"
 CHECK_INTERVAL = 5  # seconds
@@ -182,9 +183,9 @@ class CaptureMonitor:
 
         # Priority models
         priority_map = {
-            "deepseek-v3.1": "[1] Highest P/L",
+            "deepseek-chat-v3.1": "[1] Highest P/L",
             "qwen3-max": "[2] Second P/L",
-            "claude-sonnet-4.5": "[3] Negative P/L"
+            "claude-sonnet-4-5": "[3] Negative P/L"
         }
 
         # Add priority models first
@@ -205,9 +206,9 @@ class CaptureMonitor:
         console.print("To start the collector, open a new terminal and run:\n")
 
         if sys.platform == "win32":
-            console.print("[cyan]cd GPT_Implementation_Proposal\\collector[/cyan]")
+            console.print("[cyan]cd collector[/cyan]")
         else:
-            console.print("[cyan]cd GPT_Implementation_Proposal/collector[/cyan]")
+            console.print("[cyan]cd collector[/cyan]")
 
         console.print("[cyan]node server.js[/cyan]")
 
