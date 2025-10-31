@@ -167,27 +167,39 @@ def create_structured_table(db_path: Path):
     conn.close()
 
 
-def get_messages_to_process(db_path: Path, incremental: bool = False) -> List[Dict]:
-    """Get messages that need processing"""
+def get_messages_to_process(db_path: Path, incremental: bool = False, skip_empty: bool = True) -> List[Dict]:
+    """Get messages that need processing
+
+    Args:
+        db_path: Path to SQLite database
+        incremental: Only process new messages not yet extracted
+        skip_empty: Skip messages with empty or tiny (<500 chars) reasoning
+    """
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
+    # Base filter - skip empty/tiny messages by default
+    content_filter = "AND LENGTH(m.reasoning) >= 500" if skip_empty else ""
+
     if incremental:
         # Only process messages not yet extracted
-        cursor.execute("""
+        cursor.execute(f"""
             SELECT m.id, m.model_name, m.reasoning, m.raw_content, m.timestamp
             FROM model_chat m
             LEFT JOIN structured_reasoning sr ON m.id = sr.message_id
             WHERE sr.message_id IS NULL
+            {content_filter}
             ORDER BY m.timestamp DESC
         """)
     else:
-        # Process all messages
-        cursor.execute("""
-            SELECT id, model_name, reasoning, raw_content, timestamp
-            FROM model_chat
-            ORDER BY timestamp DESC
+        # Process all messages (with optional filter)
+        cursor.execute(f"""
+            SELECT m.id, m.model_name, m.reasoning, m.raw_content, m.timestamp
+            FROM model_chat m
+            WHERE 1=1
+            {content_filter}
+            ORDER BY m.timestamp DESC
         """)
 
     messages = [dict(row) for row in cursor.fetchall()]
@@ -412,6 +424,11 @@ def main():
         action="store_true",
         help="Show cost estimate without processing"
     )
+    parser.add_argument(
+        "--include-empty",
+        action="store_true",
+        help="Include empty/tiny (<500 chars) messages (not recommended)"
+    )
 
     args = parser.parse_args()
 
@@ -423,8 +440,15 @@ def main():
     console.print("[dim]Initializing structured reasoning table...[/dim]")
     create_structured_table(DB_PATH)
 
-    # Get messages to process
-    messages = get_messages_to_process(DB_PATH, incremental=args.incremental)
+    # Get messages to process (skip empty by default)
+    skip_empty = not args.include_empty
+    messages = get_messages_to_process(DB_PATH, incremental=args.incremental, skip_empty=skip_empty)
+
+    # Show filter info
+    if skip_empty:
+        console.print("[dim]Filtering: Skipping empty/tiny (<500 chars) messages[/dim]")
+    else:
+        console.print("[dim]Processing: All messages including empty[/dim]")
 
     if not messages:
         console.print("[yellow]No messages to process[/yellow]")
