@@ -1,0 +1,55 @@
+{
+  "backup_date": "2025-11-01T14:02:13.168222",
+  "total_memories": 8,
+  "memories": [
+    {
+      "id": "23ab1121-fade-48b0-b266-e885f6a650e0",
+      "sector": "reflective",
+      "title": "Open Questions and Next Steps",
+      "content": "Unresolved questions:\n1. WHY does qwen3-max have 70% high confidence vs 0-3% for others?\n2. Did holding through correction outperform active trading?\n3. Transaction cost impact on performance?\n4. Which models successfully went short during correction?\n5. Why didn't models take profits at Oct 27 peak?\n\nNext competition deployment: Framework ready, add real-time scraping, capture bull phase data"
+    },
+    {
+      "id": "56b54cdc-1018-472a-a9a6-05cdddf9c807",
+      "sector": "semantic",
+      "title": "Critical Insights from DeepSeek Self-Assessment",
+      "content": "Multi-timeframe: 3-min execution + 4-hour strategic\nInvalidation precision: bar close confirmation (not just price crossing)\nCompetition constraints: No pyramiding, 10x leverage\nCrypto time-compression: Years compressed into weeks\nTransaction costs: 0.25-1.0% per round trip"
+    },
+    {
+      "id": "155d987c-6719-41f4-a736-cd5fe0b3bd77",
+      "sector": "semantic",
+      "title": "Claude Sonnet 4.5 Self-Analysis",
+      "content": "Confidence: 1.5% high (VERY CONSERVATIVE)\nExit: 85% invalidation (RULE-FOLLOWING)\nRisk: 7.49% mean, 4.50% median\nRelative: 1.5% vs 16.1% avg high confidence\nQuestion: Did conservatism protect or underperform?\nCorrection performance: -8.53% (Oct 29-31)"
+    },
+    {
+      "id": "39de098c-8020-4524-8543-2e60b52aa111",
+      "sector": "semantic",
+      "title": "Validated Diagnostic Findings - 66% Validation",
+      "content": "H1: Inverse confidence-indicator (High: 2.9, Low: 5.0)\nH2: Reasoning depth correlation (High: 6.5, Medium: 6.9)\nH3: Risk scaling (High: 7.2%, Medium: 4.2%)\nH4: MACD in 100% of high-confidence decisions\nAll validated by DeepSeek self-assessment"
+    },
+    {
+      "id": "7ac58294-d235-4534-81fb-4411ccbc22b9",
+      "sector": "semantic",
+      "title": "Key Statistical Findings",
+      "content": "Confidence: qwen3-max 70%, claude 2%, others 0-3%\nExits: claude 85% invalidation, qwen3-max 6% invalidation\nStop loss: 100% mention rate across all models\nRisk: Mean 6.00%, Median 3.80%"
+    },
+    {
+      "id": "5eeee39f-1092-42fc-9f82-104723474248",
+      "sector": "procedural",
+      "title": "Competition Data Coverage",
+      "content": "Oct 17-27 Bull: NO DATA (project started after)\nOct 29-31 Correction: COMPLETE DATA\nPerformance (correction only):\n- claude: -8.53%\n- deepseek: -22.96%\n- gemini: +20.17%\nContext: DeepSeek peaked +120% Oct 27, dropped to +40% by Nov 1"
+    },
+    {
+      "id": "a78a23f5-77e1-4d3c-984a-485fd1693477",
+      "sector": "reflective",
+      "title": "Project Core Architecture",
+      "content": "Database: collector/nof1_data.db (4,425 records, 3,543 structured)\nMain script: workflows/comprehensive_analysis.py (6 phases)\nSupporting: extract_structured_reasoning.py, batch_extract_reasoning.py, identify_unknown_models.py, extract_portfolio_data.py"
+    },
+    {
+      "id": "a1100f08-c6f6-476e-82fe-4fb46c31d357",
+      "sector": "procedural",
+      "title": "Next Session Workflow - Analysis Without Additional Costs",
+      "content": "PHASE 1: Preliminary Analysis (Next Session - FREE)\nRun comprehensive_analysis.py --all (zero API cost)\nFocus: Correction phase, strategy inference, model comparison\nKey question: What did Gemini (+20.17%) do differently?\n\nPHASE 2: Final Results (Nov 3rd - FREE)\nCollect public competition results\nUpdate analysis with complete returns\nValidate hypotheses\n\nPHASE 3: Additional Extraction (ONLY IF CRITICAL GAPS - PAID)\nLikely NOT needed - have 3,543 structured records\nAlready spent 0 on batch extraction"
+    }
+  ],
+  "last_updated": "2025-11-01T15:04:47.080221"
+}

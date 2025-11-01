@@ -39,6 +39,7 @@ Usage:
 import sqlite3
 import json
 import sys
+import time
 from pathlib import Path
 from typing import Dict, List, Optional
 from datetime import datetime
@@ -236,40 +237,107 @@ def estimate_cost(num_messages: int, avg_message_tokens: int = 4000) -> Dict:
     }
 
 
-def extract_reasoning(client: anthropic.Anthropic, message_text: str, model: str = "claude-3-5-sonnet-20241022") -> Dict:
-    """Extract structured reasoning using Claude API"""
-    try:
-        response = client.messages.create(
-            model=model,
-            max_tokens=2000,
-            temperature=0,
-            messages=[{
-                "role": "user",
-                "content": EXTRACTION_PROMPT.format(message_text=message_text[:50000])
-            }]
-        )
+def extract_reasoning(client: anthropic.Anthropic, message_text: str, model: str = "claude-sonnet-4-5-20250929", max_retries: int = 3) -> Dict:
+    """Extract structured reasoning using Claude API with retry logic
 
-        # Extract JSON from response
-        content = response.content[0].text
+    Args:
+        client: Anthropic API client
+        message_text: Text to extract reasoning from
+        model: Model to use for extraction
+        max_retries: Maximum number of retry attempts for transient errors
 
-        # Try to parse JSON (handle markdown code blocks)
-        if "```json" in content:
-            json_str = content.split("```json")[1].split("```")[0].strip()
-        elif "```" in content:
-            json_str = content.split("```")[1].split("```")[0].strip()
-        else:
-            json_str = content.strip()
+    Returns:
+        Extracted structured data as dict, or None if extraction fails
+    """
 
-        extracted = json.loads(json_str)
-        return extracted
+    for attempt in range(max_retries):
+        try:
+            response = client.messages.create(
+                model=model,
+                max_tokens=2000,
+                temperature=0,
+                messages=[{
+                    "role": "user",
+                    "content": EXTRACTION_PROMPT.format(message_text=message_text[:50000])
+                }]
+            )
 
-    except json.JSONDecodeError as e:
-        console.print(f"[red]JSON decode error: {e}[/red]")
-        console.print(f"[dim]Response: {content[:500]}[/dim]")
-        return None
-    except Exception as e:
-        console.print(f"[red]Extraction error: {e}[/red]")
-        return None
+            # Extract JSON from response
+            content = response.content[0].text
+
+            # Try to parse JSON (handle markdown code blocks)
+            if "```json" in content:
+                json_str = content.split("```json")[1].split("```")[0].strip()
+            elif "```" in content:
+                json_str = content.split("```")[1].split("```")[0].strip()
+            else:
+                json_str = content.strip()
+
+            extracted = json.loads(json_str)
+            return extracted
+
+        except json.JSONDecodeError as e:
+            console.print(f"[red]JSON decode error: {e}[/red]")
+            console.print(f"[dim]Response: {content[:500]}[/dim]")
+            return None
+
+        except anthropic.NotFoundError as e:
+            # Fatal error - model doesn't exist or no access
+            console.print(f"[red]FATAL: Model not found or no access: {e}[/red]")
+            console.print(f"[red]Check model name: {model}[/red]")
+            raise  # Re-raise to stop execution
+
+        except anthropic.AuthenticationError as e:
+            # Fatal error - invalid API key
+            console.print(f"[red]FATAL: Authentication failed: {e}[/red]")
+            console.print(f"[red]Check ANTHROPIC_API_KEY environment variable[/red]")
+            raise  # Re-raise to stop execution
+
+        except anthropic.RateLimitError as e:
+            # Transient error - retry with exponential backoff
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) * 2  # 2s, 4s, 8s
+                console.print(f"[yellow]Rate limit hit, waiting {wait_time}s (attempt {attempt + 1}/{max_retries})...[/yellow]")
+                time.sleep(wait_time)
+                continue
+            else:
+                console.print(f"[red]Rate limit error after {max_retries} attempts: {e}[/red]")
+                return None
+
+        except (anthropic.APITimeoutError, anthropic.APIConnectionError) as e:
+            # Transient error - retry with exponential backoff
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) * 1  # 1s, 2s, 4s
+                console.print(f"[yellow]Connection/timeout error, retrying in {wait_time}s (attempt {attempt + 1}/{max_retries})...[/yellow]")
+                time.sleep(wait_time)
+                continue
+            else:
+                console.print(f"[red]Connection/timeout error after {max_retries} attempts: {e}[/red]")
+                return None
+
+        except anthropic.InternalServerError as e:
+            # HTTP 500 - Server overloaded, retry with exponential backoff
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) * 3  # 3s, 6s, 12s
+                console.print(f"[yellow]Server overloaded (500), waiting {wait_time}s (attempt {attempt + 1}/{max_retries})...[/yellow]")
+                time.sleep(wait_time)
+                continue
+            else:
+                console.print(f"[red]Server overloaded after {max_retries} attempts: {e}[/red]")
+                return None
+
+        except anthropic.APIError as e:
+            # Other API errors - log and skip
+            console.print(f"[red]API error: {e}[/red]")
+            return None
+
+        except Exception as e:
+            # Unexpected error - log and skip
+            console.print(f"[red]Unexpected error: {type(e).__name__}: {e}[/red]")
+            return None
+
+    # Should not reach here, but just in case
+    return None
 
 
 def save_structured_data(db_path: Path, message_id: int, model_name: str, extracted: Dict):
@@ -362,9 +430,12 @@ def process_messages(messages: List[Dict], use_batch: bool = False, dry_run: boo
 
     # Process messages
     console.print(f"\n[bold cyan]Processing {len(messages)} messages...[/bold cyan]\n")
+    console.print("[dim]Rate limiting: 1.5s delay between API calls (40 requests/min)[/dim]")
+    console.print(f"[dim]Estimated time: {len(messages) * 3 / 60:.1f} minutes[/dim]\n")
 
     success_count = 0
     error_count = 0
+    error_log = []  # Track failed messages for post-processing
 
     with Progress(
         SpinnerColumn(),
@@ -376,7 +447,7 @@ def process_messages(messages: List[Dict], use_batch: bool = False, dry_run: boo
 
         task = progress.add_task("Extracting...", total=len(messages))
 
-        for msg in messages:
+        for i, msg in enumerate(messages):
             # Combine reasoning and raw content
             message_text = f"{msg['reasoning'] or ''}\n\n{msg['raw_content'] or ''}"
 
@@ -389,14 +460,35 @@ def process_messages(messages: List[Dict], use_batch: bool = False, dry_run: boo
                 success_count += 1
             else:
                 error_count += 1
+                error_log.append({
+                    'message_id': msg['id'],
+                    'model_name': msg['model_name'],
+                    'timestamp': msg['timestamp']
+                })
 
             progress.advance(task)
+
+            # Rate limiting: 1.5 second delay between API calls
+            # This ensures we stay well under Anthropic's rate limits:
+            # - 50 requests/minute = 1.2s per request minimum
+            # - 40,000 tokens/minute (we use ~4,500 tokens per request)
+            # 1.5s gives us 40 requests/min with safety margin
+            if i < len(messages) - 1:  # Don't sleep after the last message
+                time.sleep(1.5)
 
     # Summary
     console.print(f"\n[bold green]Extraction Complete![/bold green]\n")
     console.print(f"  Success: {success_count} messages")
     console.print(f"  Errors: {error_count} messages")
     console.print(f"\n[dim]Structured data saved to: {DB_PATH}[/dim]")
+
+    # Save error log if there were errors
+    if error_log:
+        error_log_path = PROJECT_ROOT / "extraction_errors.json"
+        with open(error_log_path, 'w') as f:
+            json.dump(error_log, f, indent=2)
+        console.print(f"\n[yellow]Error log saved to: {error_log_path}[/yellow]")
+        console.print(f"[dim]{len(error_log)} failed messages logged[/dim]")
 
 
 def main():

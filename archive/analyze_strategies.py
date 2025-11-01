@@ -76,7 +76,7 @@ class StrategyAnalyzer:
             "5": {
                 "name": "DeepSeek Winning Patterns",
                 "category": "Model-Specific",
-                "query": "model_deepseek_v3.1 high_confidence profitable trades",
+                "query": "model_deepseek_chat_v3_1 high_confidence profitable trades",
                 "k": 20,
                 "description": "Best trades from highest P/L model"
             },
@@ -90,7 +90,7 @@ class StrategyAnalyzer:
             "7": {
                 "name": "Claude Negative Patterns",
                 "category": "Model-Specific",
-                "query": "model_claude_sonnet_4.5 unprofitable trades",
+                "query": "model_claude_sonnet_4_5 unprofitable trades",
                 "k": 15,
                 "description": "What NOT to do (negative P/L model)"
             },
@@ -260,9 +260,9 @@ class StrategyAnalyzer:
         console.print("\n[bold cyan]Model Comparison[/bold cyan]\n")
 
         models = [
-            "deepseek-v3.1",
+            "deepseek-chat-v3.1",
             "qwen3-max",
-            "claude-sonnet-4.5"
+            "claude-sonnet-4-5"
         ]
 
         console.print("[bold]Available Models:[/bold]")
@@ -314,8 +314,8 @@ class StrategyAnalyzer:
 
 ## Priority Focus
 
-Focus on DeepSeek V3.1 (highest P/L):
-- Query: model_deepseek_v3.1 high_confidence
+Focus on DeepSeek Chat V3.1 (highest P/L):
+- Query: model_deepseek_chat_v3_1 high_confidence
 - Look for: Entry timing, risk management, exit conditions
 
 ## Need Help?

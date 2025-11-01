@@ -52,6 +52,7 @@ data/processed/*
 .claude/
 .session_startup_prompt.md
 .mcp.json
+claude.md
 
 # IDE workspaces
 *.code-workspace
